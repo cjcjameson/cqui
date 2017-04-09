@@ -168,7 +168,7 @@ local CQUI_SmartWorkIconSize: number = 64;
 local CQUI_SmartWorkIconAlpha = .45;
 
 local g_smartbanner = true;
-function CQUI_OnSettingsUpdate()
+function CQUI_OnSettingsUpdate( settingsInitialized:boolean )
   CQUI_ShowYieldsOnCityHover = GameConfiguration.GetValue("CQUI_ShowYieldsOnCityHover");
   g_smartbanner = GameConfiguration.GetValue("CQUI_Smartbanner");
   g_smartbanner_unmanaged_citizen = GameConfiguration.GetValue("CQUI_Smartbanner_UnlockedCitizen");
@@ -181,7 +181,10 @@ function CQUI_OnSettingsUpdate()
   CQUI_SmartWorkIcon = GameConfiguration.GetValue("CQUI_SmartWorkIcon");
   CQUI_SmartWorkIconSize = GameConfiguration.GetValue("CQUI_SmartWorkIconSize");
   CQUI_SmartWorkIconAlpha = GameConfiguration.GetValue("CQUI_SmartWorkIconAlpha") / 100;
-  Reload();
+
+  if not settingsInitialized then
+    Reload();
+  end
 end
 LuaEvents.CQUI_SettingsUpdate.Add( CQUI_OnSettingsUpdate );
 
@@ -2137,7 +2140,7 @@ function OnCityRangeStrikeButtonClick( playerID, cityID )
 	UI.DeselectAll();
 	UI.SelectCity( pCity );
 	UI.SetInterfaceMode(InterfaceModeTypes.CITY_RANGE_ATTACK);
-  
+
 end
 
 -- ===========================================================================
