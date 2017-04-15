@@ -328,7 +328,9 @@ function OnStatusMessage( str:string, fDisplayTime:number, type:number )
     pInstance.Anim:RegisterEndCallback( function() OnEndAnim(kTypeEntry,pInstance) end );
     pInstance.Anim:SetToBeginning();
     pInstance.Anim:Play();
-    pInstance.Button:RegisterCallback( Mouse.eLClick, function() OnMessageClicked(kTypeEntry,pInstance) end );
+    if(pInstance.Button ~= nil) then
+      pInstance.Button:RegisterCallback( Mouse.eLClick, function() OnMessageClicked(kTypeEntry,pInstance) end );
+    end
 
     Controls.StackOfMessages:CalculateSize();
     Controls.StackOfMessages:ReprocessAnchoring();
